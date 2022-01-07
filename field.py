@@ -18,26 +18,32 @@ class Field:
         self.rows = rows
 
     def get_cell(self, x, y):
-        pass
+        """метод, возвращающий объект находящийся по данным координатам"""
+        return self.field[x][y]
 
-    def move_unit_up(self):
-        pass
-
-    def move_unit_down(self):
-        pass
-
-    def move_unit_right(self):
-        pass
-
-    def move_unit_left(self):
-        pass
+    def move_unit(self, direction, steps: int):
+        """направление и кол-во шагов юнита"""
+        x, y = self.unit.get_coordinates()
+        if direction == "w":
+            x = x + steps
+        elif direction == "s":
+            x = x - steps
+        elif direction == "a":
+            y = y - steps
+        elif direction == "d":
+            y = y + steps
+        else:
+            print("указано неправильное направление. Используйте пожалуйста команды: w, a, s, d")
 
     def get_field(self):
-        pass
+        """возвращает свойство field."""
+        return self.field
 
     def get_cols(self):
-        pass
+        """возвращает кол-во столбцов в поле"""
+        return self.cols
 
     def get_rows(self):
-        pass
+        """возвращает кол-во строк в поле"""
+        return self.rows
 
