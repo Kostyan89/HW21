@@ -21,16 +21,16 @@ class GameController:
             arr = f.readlines()
         row = len(arr[0])
         col = len(arr)
-        for line_n, line in enumerate(arr):
+        for line in arr:
             field_line = []
-            for item_n, item in enumerate(line.strip("\n")):
+            for item in line:
                 if item == "W":
                     field_line.append(Cell(Wall()))
                 if item == "g":
                     field_line.append(Cell(Grass()))
                 if item == "G":
                     field_line.append(Cell(Grass()))
-                    self.hero = Ghost(item_n, line_n, item_n)
+                    self.hero = Ghost()
                 if item == "K":
                     field_line.append(Cell(Key()))
                 if item == "D":
