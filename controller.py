@@ -1,5 +1,6 @@
 import config
-from field import Cell
+from field import Cell, Field
+from hero import Ghost
 from terrain import Grass, Wall, Door, Key, Trap
 
 
@@ -15,21 +16,34 @@ class GameController:
         self.field = None
 
     def make_field(self, lvlstrng):
-        cell_1 = Cell(Wall())
-        cell_2 = Cell(Grass())
-        cell_3 = Cell(Grass())
+        fields = []
+        with open('game_field.txt', 'r') as f:
+            arr = f.readlines()
+        row = len(arr[0])
+        col = len(arr)
+        for line_n, line in enumerate(arr):
+            field_line = []
+            for item_n, item in enumerate(line.strip("\n")):
+                if item == "W":
+                    field_line.append(Cell(Wall()))
+                if item == "g":
+                    field_line.append(Cell(Grass()))
+                if item == "G":
+                    field_line.append(Cell(Grass()))
+                    self.hero = Ghost(item_n, line_n, item_n)
+                if item == "K":
+                    field_line.append(Cell(Key()))
+                if item == "D":
+                    field_line.append(Cell(Door()))
+                if item == "T":
+                    field_line.append(Cell(Trap()))
+            fields.append(field_line)
+            self.field = Field(fields, col, row, self.hero)
 
-        field = [
-            [cell_1, cell_2, cell_3]
-        ]
+    def play(self,  name, hp, got_key, coord, escaped, defense):
 
-    self.field = Field()
-    self.field.set_field(field)
-
-    def play(self):
-
-        self.hero = Hero(...)
-        while self.game_on and not hero.escaped:
+        self.hero = Ghost(name, hp, got_key, coord, escaped, defense)
+        while self.game_on and not self.hero.escaped:
             command = input()
             if command == "w":
                 self.field.move_unit_up()
@@ -39,9 +53,9 @@ class GameController:
                 self.field.move_unit_left()
             elif command == "d":
                 self.field.move_unit_right()
-            elif command == "stop":
+            elif command in ["stop", "exit"]:
                 self.game_on = False
-            elif hero.escaped == True:
+            elif self.hero.escaped:
                 break
 
     def _draw_field(self):
