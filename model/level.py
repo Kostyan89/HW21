@@ -1,6 +1,3 @@
-from model.hero import Ghost
-
-
 class Cell:
     def __init__(self, obj):
         self.obj = obj
@@ -21,11 +18,11 @@ class Field:
         self.rows = rows
 
     def get_cell(self, x, y):
-        """метод, возвращающий объект находящийся по данным координатам"""
+        """Метод, возвращающий объект находящийся по данным координатам"""
         return self.field[x][y]
 
     def move_unit(self, direction, steps: int):
-        """направление и кол-во шагов юнита"""
+        """Направление и кол-во шагов юнита"""
         x, y = self.unit.get_coordinates()
         if direction == "w":
             x += steps
@@ -36,17 +33,17 @@ class Field:
         elif direction == "d":
             y += steps
         else:
-            print("указано неправильное направление. Используйте пожалуйста команды: w, a, s, d")
+            print("Указано неправильное направление. Используйте пожалуйста команды: w, a, s, d")
         self.unit.set_coordinates()
 
     def get_field(self):
-        """возвращает свойство field."""
+        """Возвращает свойство field."""
         return self.field
 
     def get_cols(self):
-        """возвращает кол-во столбцов в поле"""
+        """Возвращает кол-во столбцов в поле"""
         return self.cols
 
     def get_rows(self):
-        """возвращает кол-во строк в поле"""
+        """Возвращает кол-во строк в поле"""
         return self.rows
