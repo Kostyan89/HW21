@@ -6,3 +6,5 @@ mapping = {
 		'Door': '🚪',
 		'Trap': '💀',
 	}
+
+trap_damage = 1

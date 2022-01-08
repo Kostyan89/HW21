@@ -36,7 +36,7 @@ class GameController:
                 if item == "D":
                     field_line.append(Cell(Door()))
                 if item == "T":
-                    field_line.append(Cell(Trap()))
+                    field_line.append(Cell(Trap(damage=config.trap_damage)))
             fields.append(field_line)
             self.field = Field(fields, col, row, self.hero)
 
