@@ -15,7 +15,7 @@ class GameController:
         self.hero = None
         self.field = None
 
-    def make_field(self, lvlstrng):
+    def make_field(self):
         fields = []
         with open('labyrinth.txt', 'r') as f:
             arr = f.readlines()

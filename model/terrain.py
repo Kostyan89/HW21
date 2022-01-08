@@ -1,6 +1,3 @@
-from model.hero import Ghost
-
-
 class Terrain:
 
     def __init__(self, terrain, walkable):

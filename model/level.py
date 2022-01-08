@@ -47,4 +47,3 @@ class Field:
     def get_rows(self):
         """возвращает кол-во строк в поле"""
         return self.rows
-
