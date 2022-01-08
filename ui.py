@@ -15,7 +15,7 @@ class GameController:
         self.hero = None
         self.field = None
 
-    def make_field(self):
+    def make_field(self, unit):
         fields = []
         with open('labyrinth.txt', 'r') as f:
             arr = f.readlines()
@@ -30,7 +30,7 @@ class GameController:
                     field_line.append(Cell(Grass()))
                 if item == "G":
                     field_line.append(Cell(Grass()))
-                    self.hero = Ghost()
+                    self.hero = unit
                 if item == "K":
                     field_line.append(Cell(Key()))
                 if item == "D":
