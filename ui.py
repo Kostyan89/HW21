@@ -1,7 +1,7 @@
 import config
-from field import Cell, Field
-from hero import Ghost
-from terrain import Grass, Wall, Door, Key, Trap
+from model.level import Cell, Field
+from model.hero import Ghost
+from model.terrain import Grass, Wall, Door, Key, Trap
 
 
 class Hero:
@@ -17,7 +17,7 @@ class GameController:
 
     def make_field(self, lvlstrng):
         fields = []
-        with open('game_field.txt', 'r') as f:
+        with open('labyrinth.txt', 'r') as f:
             arr = f.readlines()
         row = len(arr[0])
         col = len(arr)

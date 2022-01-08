@@ -9,12 +9,6 @@ class Unit:
         self.escaped = False
         self.defense = defense
 
-
-class Ghost(Unit):
-    def __init__(self, name, hp, got_key, coord, escaped, defense):
-        super().__init__(hp, got_key, coord, escaped, defense)
-        self.name = name
-
     def get_coordinates(self):
         """возвращает координаты юнита"""
         return self.coord
@@ -53,3 +47,9 @@ class Ghost(Unit):
     def has_position(self, x, y):
         """проверяет в этих ли координатах установлен юнит"""
         return self.coord[0] == x and self.coord[1] == y
+
+
+class Ghost(Unit):
+    def __init__(self, name, hp, got_key, coord, escaped, defense):
+        super().__init__(hp, got_key, coord, escaped, defense)
+        self.name = name

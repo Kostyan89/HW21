@@ -1,4 +1,4 @@
-from controller import GameController
+from ui import GameController
 
 gc = GameController()
 
