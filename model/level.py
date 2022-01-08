@@ -1,3 +1,6 @@
+from model.hero import Ghost
+
+
 class Cell:
     def __init__(self, obj):
         self.obj = obj
@@ -10,7 +13,7 @@ class Cell:
 
 
 class Field:
-    def __init__(self, field, unit, cols, rows):
+    def __init__(self, field, cols, rows, unit):
 
         self.field = field
         self.unit = unit

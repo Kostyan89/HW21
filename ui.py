@@ -12,10 +12,10 @@ class GameController:
     def __init__(self):
         self.mapping = config.mapping
         self.game_on = True
-        self.hero = None
+        self.hero = Ghost
         self.field = None
 
-    def make_field(self, unit):
+    def make_field(self):
         fields = []
         with open('labyrinth.txt', 'r') as f:
             arr = f.readlines()
@@ -30,7 +30,7 @@ class GameController:
                     field_line.append(Cell(Grass()))
                 if item == "G":
                     field_line.append(Cell(Grass()))
-                    self.hero = unit
+                    field_line.append(self.hero)
                 if item == "K":
                     field_line.append(Cell(Key()))
                 if item == "D":
@@ -40,10 +40,9 @@ class GameController:
             fields.append(field_line)
             self.field = Field(fields, col, row, self.hero)
 
-    def play(self,  name, hp, got_key, coord, escaped, defense):
-
-        self.hero = Ghost(name, hp, got_key, coord, escaped, defense)
-        while self.game_on and not self.hero.escaped:
+    def play(self):
+        self.make_field()
+        while self.game_on and not self.hero.has_escaped:
             command = input()
             if command == "w":
                 self.field.move_unit_up()
@@ -55,8 +54,10 @@ class GameController:
                 self.field.move_unit_right()
             elif command in ["stop", "exit"]:
                 self.game_on = False
-            elif self.hero.escaped:
+            elif self.hero.has_escaped:
                 break
+            else:
+                print("Вы ввели неправильную команду")
 
     def _draw_field(self):
         for cell in self.field:
