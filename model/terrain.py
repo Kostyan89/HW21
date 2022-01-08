@@ -7,7 +7,6 @@ class Terrain:
         self.terrain = terrain
         self.walkable = walkable
 
-
     def is_walkable(self):
         return self.walkable
 

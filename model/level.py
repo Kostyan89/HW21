@@ -25,15 +25,16 @@ class Field:
         """направление и кол-во шагов юнита"""
         x, y = self.unit.get_coordinates()
         if direction == "w":
-            x = x + steps
+            x += steps
         elif direction == "s":
-            x = x - steps
+            x -= steps
         elif direction == "a":
-            y = y - steps
+            y -= steps
         elif direction == "d":
-            y = y + steps
+            y += steps
         else:
             print("указано неправильное направление. Используйте пожалуйста команды: w, a, s, d")
+        self.unit.set_coordinates()
 
     def get_field(self):
         """возвращает свойство field."""
