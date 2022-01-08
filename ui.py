@@ -60,5 +60,6 @@ class GameController:
                 print("Вы ввели неправильную команду")
 
     def _draw_field(self):
+        self.make_field()
         for cell in self.field:
             print(cell)
