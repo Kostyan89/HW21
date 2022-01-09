@@ -42,6 +42,7 @@ class GameController:
 
     def play(self):
         self.make_field()
+        self._draw_field()
         while self.game_on and not self.hero.has_escaped:
             command = input()
             if command == "w":
@@ -60,6 +61,5 @@ class GameController:
                 print("Вы ввели неправильную команду")
 
     def _draw_field(self):
-        self.make_field()
         for cell in self.field:
             print(cell)

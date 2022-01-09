@@ -28,8 +28,8 @@ class Unit:
 
     def has_escaped(self):
         """проверяет, удалось ли сбежать."""
-        if not self.escaped:
-            return True
+        return self.escaped
+
 
     def is_alive(self):
         """проверяет, есть ли еще у юнита положительное количество хит-поинтов."""
