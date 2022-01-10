@@ -13,17 +13,17 @@ class Terrain:
 
 class Grass(Terrain):
     def __init__(self):
-        super().__init__(terrain="grass", walkable=True)
+        super().__init__(terrain="Grass", walkable=True)
 
 
 class Wall(Terrain):
     def __init__(self):
-        super().__init__(terrain="wall", walkable=False)
+        super().__init__(terrain="Wall", walkable=False)
 
 
 class Door(Terrain):
     def __init__(self):
-        super().__init__(terrain="door", walkable=False)
+        super().__init__(terrain="Door", walkable=False)
 
     def step_on(self, unit):
         if unit.has_key():
@@ -32,7 +32,7 @@ class Door(Terrain):
 
 class Key(Terrain):
     def __init__(self):
-        super().__init__(terrain="key", walkable=True)
+        super().__init__(terrain="Key", walkable=True)
 
     def get_key(self, unit):
         if not unit.got_key:
@@ -41,7 +41,7 @@ class Key(Terrain):
 
 class Trap(Terrain):
     def __init__(self, damage):
-        super().__init__(terrain="trap", walkable=True)
+        super().__init__(terrain="Trap", walkable=True)
         self.damage = damage
 
     def step_on(self, unit):

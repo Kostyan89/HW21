@@ -1,6 +1,6 @@
 import config
 from model.level import Cell, Field
-from model.hero import Ghost
+from model.hero import Ghost, Unit
 from model.terrain import Grass, Wall, Door, Key, Trap
 
 
@@ -12,7 +12,7 @@ class GameController:
     def __init__(self):
         self.mapping = config.mapping
         self.game_on = True
-        self.hero = Ghost
+        self.hero = Unit
         self.field = None
 
     def make_field(self):
@@ -21,6 +21,7 @@ class GameController:
             arr = f.readlines()
         row = len(arr[0])
         col = len(arr)
+        unit = Unit(hp=50, coord=(row, col), defense=1)
         for line_n, line in enumerate(arr):
             field_line = []
             for item_n, item in enumerate(line.strip("\n")):
@@ -29,8 +30,7 @@ class GameController:
                 if item == "g":
                     field_line.append(Cell(Grass()))
                 if item == "G":
-                    field_line.append(Cell(Grass()))
-                    field_line.append(Ghost)
+                    field_line.append(Unit)
                 if item == "K":
                     field_line.append(Cell(Key()))
                 if item == "D":
@@ -38,22 +38,16 @@ class GameController:
                 if item == "T":
                     field_line.append(Cell(Trap(damage=config.trap_damage)))
             fields.append(field_line)
-            self.field = Field(fields, col, row, self.hero)
+            self.field = Field(fields, col, row, unit)
 
     def play(self):
         self.make_field()
         self._draw_field()
         while self.game_on and not self.hero.has_escaped:
-            command = input()
-            if command == "w":
-                self.field.move_unit_up()
-            elif command == "s":
-                self.field.move_unit_down()
-            elif command == "a":
-                self.field.move_unit_left()
-            elif command == "d":
-                self.field.move_unit_right()
-            elif command in ["stop", "exit"]:
+            direction = input("Куда направитесь?")
+            if direction in ["w", "s", "d", "a"]:
+                self.field.move(direction)
+            elif direction in ["stop", "exit"]:
                 self.game_on = False
             elif self.hero.has_escaped:
                 break
@@ -61,5 +55,11 @@ class GameController:
                 print("Вы ввели неправильную команду")
 
     def _draw_field(self):
-        for cell in self.field:
-            print(cell)
+        for y, line in enumerate(self.field.get_field()):
+            s = ""
+            for x, item in enumerate(line):
+                if self.hero.get_coordinates():
+                    s += self.mapping["ghost"]
+                else:
+                    s += self.mapping[item.get_object().get_terrain()]
+            print(s)

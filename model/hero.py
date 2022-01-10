@@ -10,46 +10,46 @@ class Unit:
         self.defense = defense
 
     def get_coordinates(self):
-        """возвращает координаты юнита"""
+        """Возвращает координаты юнита"""
         return self.coord
 
     def set_coordinates(self, x, y):
-        "устанавливает координат юнита"
-        self.coord = (x, y)
+        "Устанавливает координат юнита"
+        self.coord = [x, y]
 
     def has_key(self):
-        """проверяет, есть ли у данного юнита ключ."""
+        """Проверяет, есть ли у данного юнита ключ."""
         if not self.got_key:
             return True
 
     def set_key(self):
-        """ставит маркер got_key в True."""
+        """Ставит маркер got_key в True."""
         self.got_key = True
 
     def has_escaped(self):
-        """проверяет, удалось ли сбежать."""
+        """Проверяет, удалось ли сбежать."""
         return self.escaped
 
 
     def is_alive(self):
-        """проверяет, есть ли еще у юнита положительное количество хит-поинтов."""
+        """Проверяет, есть ли еще у юнита положительное количество хит-поинтов."""
         if self.hp <= 0:
             raise UnitDied
         return True
 
     def get_damage(self, damage):
-        """обрабатывает входящий урон с учетом текущего параметра защиты.
+        """Обрабатывает входящий урон с учетом текущего параметра защиты.
         Если юнит умирает после атаки, должно быть выброшено исключение UnitDied."""
         if damage > self.defense:
             self.hp = self.hp - (damage - self.defense)
         self.is_alive()
 
     def has_position(self, x, y):
-        """проверяет в этих ли координатах установлен юнит"""
+        """Проверяет в этих ли координатах установлен юнит"""
         return self.coord[0] == x and self.coord[1] == y
 
 
 class Ghost(Unit):
-    def __init__(self, name, hp, coord, defense):
+    def __init__(self,hp, coord, defense):
         super().__init__(hp, coord, defense)
-        self.name = name
+        self.name = Ghost
