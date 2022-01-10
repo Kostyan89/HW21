@@ -9,10 +9,10 @@ class Hero:
 
 
 class GameController:
-    def __init__(self):
+    def __init__(self, unit: Unit):
         self.mapping = config.mapping
         self.game_on = True
-        self.hero = Unit
+        self.hero = unit
         self.field = None
 
     def make_field(self):
@@ -59,7 +59,7 @@ class GameController:
             s = ""
             for x, item in enumerate(line):
                 if self.hero.get_coordinates():
-                    s += self.mapping["ghost"]
+                    s += self.mapping["Ghost"]
                 else:
                     s += self.mapping[item.get_object().get_terrain()]
             print(s)
