@@ -58,7 +58,7 @@ class GameController:
         for y, line in enumerate(self.field.get_field()):
             s = ""
             for x, item in enumerate(line):
-                if self.hero.get_coordinates():
+                if self.field.get_cell(line, item):
                     s += self.mapping["Ghost"]
                 else:
                     s += self.mapping[item.get_object().get_terrain()]
