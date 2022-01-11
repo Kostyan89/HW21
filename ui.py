@@ -39,9 +39,20 @@ class GameController:
                     field_line.append(Cell(Trap(damage=config.trap_damage)))
             fields.append(field_line)
             self.field = Field(fields, col, row, unit)
+            return self.field
+
+    def _draw_field(self):
+        self.make_field()
+        for y, line in enumerate(self.field.get_field()):
+            s = ""
+            for x, item in enumerate(line):
+                if self.hero.has_position(x, y):
+                    s += config.mapping["Ghost"]
+                else:
+                    s += config.mapping[item.get_object().get_terrain()]
+            print(s)
 
     def play(self):
-        self.make_field()
         self._draw_field()
         while self.game_on and not self.hero.has_escaped:
             direction = input("Куда направитесь?")
@@ -53,13 +64,3 @@ class GameController:
                 break
             else:
                 print("Вы ввели неправильную команду")
-
-    def _draw_field(self):
-        for y, line in enumerate(self.field.get_field()):
-            s = ""
-            for x, item in enumerate(line):
-                if self.field.get_cell(line, item):
-                    s += self.mapping["Ghost"]
-                else:
-                    s += self.mapping[item.get_object().get_terrain()]
-            print(s)

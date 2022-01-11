@@ -20,9 +20,9 @@ class Field:
         self.cols = cols
         self.rows = rows
 
-    def get_cell(self, y, x):
+    def get_cell(self, x, y):
         """Метод, возвращающий объект находящийся по данным координатам"""
-        return self.field[y][x]
+        return self.field[x][y]
 
     def move_unit(self, direction):
         """Направление и кол-во шагов юнита"""
