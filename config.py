@@ -1,10 +1,13 @@
+from model.hero import Ghost
+from model.terrain import Wall, Grass, Key, Door, Trap
+
 mapping = {
-		'Wall': '🔲',
-		'Grass': '⬜️',
-		'Ghost': '👻',
-		'Key': '🗝',
-		'Door': '🚪',
-		'Trap': '💀',
+		Wall: '🔲',
+		Grass: '⬜',
+		Ghost: '👻',
+		Key: '🗝',
+		Door: '🚪',
+		Trap: '💀',
 	}
 
 trap_damage = 2

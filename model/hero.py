@@ -15,12 +15,12 @@ class Unit:
 
     def set_coordinates(self, x, y):
         "Устанавливает координат юнита"
-        self.coord = [x, y]
+        self.coord = (x, y)
 
     def has_key(self):
         """Проверяет, есть ли у данного юнита ключ."""
-        if not self.got_key:
-            return True
+        return self.got_key
+
 
     def set_key(self):
         """Ставит маркер got_key в True."""
@@ -46,7 +46,7 @@ class Unit:
 
     def has_position(self, x, y):
         """Проверяет в этих ли координатах установлен юнит"""
-        return self.coord[0] == x and self.coord[1] == y
+        return self.coord == (x, y)
 
 
 class Ghost(Unit):
