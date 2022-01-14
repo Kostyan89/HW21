@@ -45,6 +45,7 @@ class Field:
         return x, y
 
     def move_te_cell(self, x, y):
+        """Если поле проходимое, меняет координаты героя"""
         if self.get_cell(x, y).get_object().walkable:
             self.unit.set_coordinates(x, y)
         else:
@@ -63,6 +64,7 @@ class Field:
         return self.rows
 
     def fill_area(self, string_field: str) -> List[List[Cell]]:
+        """Заполняет ячейки игрового поля"""
         area = []
         for line in string_field.split("\n"):
             line = line.strip()
@@ -73,6 +75,7 @@ class Field:
         return area
 
     def _choose_cell(self, letter: str) -> Cell:
+        """Определяет ячейки для заполнения игрового поля"""
         data = {
             "W": Wall,
             "g": Grass,
