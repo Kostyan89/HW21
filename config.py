@@ -10,7 +10,7 @@ mapping = {
 		Trap: '💀',
 	}
 
-trap_damage = 2
+trap_damage = 3
 
 default_hp = 10
 
