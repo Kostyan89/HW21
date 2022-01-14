@@ -31,15 +31,15 @@ class GameController:
             self._draw_field()
             direction = input()
             if direction in ["w", "s", "d", "a"]:
-                self.unit_move()
+                self.unit_move(self.field.movement(direction)[0], self.field.movement(direction)[1])
+
             elif direction in ["stop", "exit"]:
                 self.game_on = False
                 print("Конец игры")
             else:
                 print("Вы ввели неправильную команду")
 
-    def unit_move(self):
-        x, y = self.unit.get_coordinates()
+    def unit_move(self, x, y):
         if self.field.get_cell(y, x).get_object().get_terrain() == Trap:
             self.field.move_te_cell(x=x, y=y)
             self.unit.get_damage(Trap(self.unit).step_on(config.trap_damage))
