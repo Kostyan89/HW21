@@ -31,7 +31,9 @@ class GameController:
             self._draw_field()
             direction = input()
             if direction in ["w", "s", "d", "a"]:
-                self.field.move_unit(direction)
+                self.field.unit_move(self.field.movement(direction)[0], self.field.movement(direction)[1])
             elif direction in ["stop", "exit"]:
                 self.game_on = False
                 print("Конец игры")
+            else:
+                print("Вы ввели неправильную команду")

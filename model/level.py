@@ -28,9 +28,9 @@ class Field:
         """Метод, возвращающий объект находящийся по данным координатам"""
         return self.play_field[y][x]
 
-    def move_unit(self, direction):
+    def movement(self, direction):
         """Направление и кол-во шагов юнита"""
-        x, y = self.unit.get_coordinates()
+        (x, y) = self.unit.get_coordinates()
         if direction == "w":
             x += 1
         elif direction == "s":
@@ -42,6 +42,24 @@ class Field:
         else:
             print("Указано неправильное направление. Используйте пожалуйста команды: w, a, s, d")
         self.unit.set_coordinates(x, y)
+        return x, y
+
+    def unit_move(self, x, y):
+        if self.get_cell(y, x).get_object().get_terrain() == Trap:
+            self.unit.set_coordinates(x=x, y=y)
+            self.unit.get_damage(Trap.step_on())
+        elif self.get_cell(y, x).get_object().get_terrain() == Key:
+            print('Получен ключ')
+            self.unit.set_coordinates(x=x, y=y)
+            self.unit.set_key()
+        elif self.get_cell(y, x).get_object().get_terrain() == Door and self.unit.got_key():
+            self.unit.set_coordinates(x=x, y=y)
+            print("Победа")
+            self.unit.has_escaped()
+        elif self.get_cell(y, x).get_object().get_terrain() == Grass:
+            self.unit.set_coordinates(x=x, y=y)
+        else:
+            print('Проход закрыт')
 
     def get_field(self):
         """Возвращает свойство field."""
