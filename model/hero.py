@@ -4,7 +4,7 @@ from exeptions import UnitDied
 class Unit:
     def __init__(self, hp, coord: tuple, defense):
         self.hp = hp
-        self.got_key = False
+        self.got_key: bool = False
         self.coord = coord
         self.escaped = False
         self.defense = defense
@@ -17,10 +17,9 @@ class Unit:
         "Устанавливает координат юнита"
         self.coord = (x, y)
 
-    def has_key(self):
+    def has_key(self) -> bool:
         """Проверяет, есть ли у данного юнита ключ."""
         return self.got_key
-
 
     def set_key(self):
         """Ставит маркер got_key в True."""
@@ -29,7 +28,6 @@ class Unit:
     def has_escaped(self):
         """Проверяет, удалось ли сбежать."""
         return self.escaped
-
 
     def is_alive(self):
         """Проверяет, есть ли еще у юнита положительное количество хит-поинтов."""

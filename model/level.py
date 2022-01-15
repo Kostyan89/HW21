@@ -1,12 +1,12 @@
-from typing import List
+from typing import List, Union
 
 import config
 from model.hero import Unit
-from model.terrain import Wall, Grass, Key, Door, Trap
+from model.terrain import Terrain, Wall, Grass, Key, Door, Trap
 
 
 class Cell:
-    def __init__(self, obj):
+    def __init__(self, obj: Union[Terrain, Unit]):
         self.obj = obj
 
     def get_object(self):
@@ -14,6 +14,9 @@ class Cell:
 
     def set_object(self, obj):
         self.obj = obj
+
+    def __repr__(self):
+        return self.obj.__class__.__name__
 
 
 class Field:
@@ -30,26 +33,25 @@ class Field:
 
     def movement(self, direction):
         """Направление и кол-во шагов юнита"""
-        (x, y) = self.unit.get_coordinates()
+        x, y = self.unit.get_coordinates()
         if direction == "w":
-            x += 1
-        elif direction == "s":
             x -= 1
+        elif direction == "s":
+            x += 1
         elif direction == "a":
             y -= 1
         elif direction == "d":
             y += 1
         else:
-            print("Указано неправильное направление. Используйте пожалуйста команды: w, a, s, d")
-        self.unit.set_coordinates(x, y)
-        return x, y
+            assert False, 'До сюда дойти цикл не должен, т.к. проверка есть в ui.py'
 
-    def move_te_cell(self, x, y):
-        """Если поле проходимое, меняет координаты героя"""
-        if self.get_cell(x, y).get_object().walkable:
-            self.unit.set_coordinates(x, y)
-        else:
-            print("Проход закрыт")
+        target_field = self.play_field[x][y].get_object()
+        if isinstance(target_field, Terrain):
+            if not target_field.walkable:
+                print("Проход закрыт")
+            else:
+                target_field.step_on(self.unit)
+                self.unit.set_coordinates(x, y)
 
     def get_field(self):
         """Возвращает свойство field."""
@@ -74,7 +76,8 @@ class Field:
             area.append(cell_list)
         return area
 
-    def _choose_cell(self, letter: str) -> Cell:
+    @staticmethod
+    def _choose_cell(letter: str) -> Cell:
         """Определяет ячейки для заполнения игрового поля"""
         data = {
             "W": Wall,
@@ -83,12 +86,12 @@ class Field:
             "D": Door,
             "T": Trap
         }
-        if letter == "G":
-            return Cell(self.unit)
-        elif letter == "T":
-            return Cell(Trap(damage=config.trap_damage))
-        else:
+        if letter == "T":
+            return Cell(data[letter](damage=config.trap_damage))
+        elif letter in data:
             return Cell(data[letter]())
+        else:
+            assert False, f'Can not mapping {letter}'
 
 
 

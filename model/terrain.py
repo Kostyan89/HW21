@@ -1,3 +1,6 @@
+from model.hero import Unit
+
+
 class Terrain:
 
     def __init__(self, terrain, walkable):
@@ -9,6 +12,9 @@ class Terrain:
 
     def get_terrain(self):
         return self.terrain
+
+    def step_on(self, unit):
+        pass
 
 
 class Grass(Terrain):
@@ -23,20 +29,21 @@ class Wall(Terrain):
 
 class Door(Terrain):
     def __init__(self):
-        super().__init__(terrain="Door", walkable=False)
+        super().__init__(terrain="Door", walkable=True)
 
-    def step_on(self, unit):
-        if unit.has_key():
-            self.walkable = True
+    def step_on(self, unit: Unit):
+        if unit.got_key:
+            unit.escaped = True
+        else:
+            print('Нужен ключ, чтобы выйти')
 
 
 class Key(Terrain):
     def __init__(self):
         super().__init__(terrain="Key", walkable=True)
 
-    def get_key(self, unit):
-        if not unit.got_key:
-            unit.got_key = True
+    def step_on(self, unit):
+        unit.got_key = True
 
 
 class Trap(Terrain):
