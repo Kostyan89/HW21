@@ -7,6 +7,6 @@ def read_file() -> str:
         return "".join(f.readlines())
 
 
-gc = GameController(string_field=read_file(), unit=Ghost(hp=50, coord=(2, 2), defense=1))
+gc = GameController(string_field=read_file(), unit=Ghost(hp=50, coord=(1, 2), defense=1))
 
 gc.play()
